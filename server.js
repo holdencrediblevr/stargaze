@@ -113,12 +113,27 @@ async function startServer() {
   });
 
   // Vite middleware for development
-  if (process.env.NODE_ENV !== "production") {
+  const isProd = process.env.NODE_ENV === "production";
+  console.log(`Server starting in ${isProd ? 'production' : 'development'} mode (NODE_ENV: ${process.env.NODE_ENV})`);
+  
+  if (!isProd) {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
     });
     app.use(vite.middlewares);
+    
+    app.get("*", async (req, res, next) => {
+      const url = req.originalUrl;
+      try {
+        let template = await vite.transformIndexHtml(url, ""); // Let Vite handle it or provide a template
+        // Actually, with appType: 'spa', vite.middlewares should handle index.html
+        // But if it's not, we can try to serve it manually.
+        next();
+      } catch (e) {
+        next(e);
+      }
+    });
   } else {
     app.use(express.static(path.join(process.cwd(), "dist")));
     app.get("*", (req, res) => {
