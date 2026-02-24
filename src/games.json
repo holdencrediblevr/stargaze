@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "title": "2048",
+    "url": "https://play2048.co/",
+    "thumbnail": "https://picsum.photos/seed/2048/300/200"
+  },
+  {
+    "id": "2",
+    "title": "Doodle Jump",
+    "url": "https://doodlejump.io/",
+    "thumbnail": "https://picsum.photos/seed/doodle/300/200"
+  },
+  {
+    "id": "3",
+    "title": "Slope",
+    "url": "https://slopegame.online/",
+    "thumbnail": "https://picsum.photos/seed/slope/300/200"
+  }
+]
